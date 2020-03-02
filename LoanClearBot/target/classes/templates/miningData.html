@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NEST平仓</title>
+</head>
+<body class="bk">
+<div style="text-align: center">
+    <h2>NEST平仓</h2>
+    <label th:text=${startCloseRate}></label>  <button onclick="startCloseRate()">修改状态</button>
+    <p></p>
+    <label>当前使用节点: </label><label th:text=${node}></label>
+    <p></p>
+    <label>设置节点：</label>
+    <form id="updateNode">
+        <input type="text" name="node">
+        <input type="button" onclick="updateNode()" value="提交"/>
+    </form>
+    <p></p>
+    <label>钱包地址: </label><label th:text=${address}></label>
+    <p></p>
+    <label>设置私钥: </label>
+    <form id="updatePrivateKey">
+        <input type="text" name="privateKey">
+        <input type="button" onclick="updatePrivateKey()" value="提交"/>
+    </form>
+</div>
+</body>
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+    function updateNode() {
+        $.ajax({
+            type:"POST",
+            url:"http://127.0.0.1:8088/loan/updateNode",
+            data:$('#updateNode').serialize(),
+            success:function(result){
+                location.replace(location);
+            },
+            error:function(){
+                alert("请输入正确的节点!!")
+            }
+        })
+    }
+    function updatePrivateKey(){
+        $.ajax({
+            type:"POST",
+            url:"http://127.0.0.1:8088/loan/updatePrivateKey",
+            data:$('#updatePrivateKey').serialize(),
+            success:function(result){
+                location.replace(location);
+            },
+            error:function(){
+                alert("请输入正确的私钥!!")
+            }
+        })
+    }
+    function startCloseRate(){
+        $.ajax({
+            type:"POST",
+            url:"http://127.0.0.1:8088/loan/updateCloseRate",
+            data:$('').serialize(),
+            success:function(result){
+                location.replace(location);
+            },
+            error:function(){
+                alert("启动/关闭错误!!")
+            }
+        })
+    }
+</script>
+
+<style type="text/css">
+    .bk{
+        background-color: cadetblue;
+        background-size: 100% 100%;
+    }
+</style>
+</html>
+
